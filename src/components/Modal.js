@@ -6,17 +6,17 @@ const Modal = ({ originQuery }) => {
   // const { data, isSuccess } = originQuery.data && originQuery.data;
   //console.log("🚀 ~ file: Modal.js ~ line 7 ~ Modal ~ isSuccess", isSuccess);
 
-  if (originQuery.isLoading) {
-    return <p>Loading...</p>;
-  }
+  // if (originQuery.isLoading) {
+  //   return <p>Loading...</p>;
+  // }
 
-  if (originQuery.isError) {
-    return <p>Error</p>;
-  }
+  // if (originQuery.isError) {
+  //   return <p>Error</p>;
+  // }
 
-  if (originQuery.data.error) {
-    return <p>Error</p>;
-  }
+  // if (originQuery.data.error) {
+  //   return <p>Error</p>;
+  // }
 
   return (
     <div>
