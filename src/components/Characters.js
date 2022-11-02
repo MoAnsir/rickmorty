@@ -69,11 +69,6 @@ const Characters = () => {
         <button className={`btn btn-lg ${page === 1 ? "btn-disabled" : ""}`} onClick={() => setPage(page - 1)}>
           Previous
         </button>
-        <button className="btn btn-lg">1</button>
-        <button className="btn btn-lg">2</button>
-        <button className="btn btn-lg btn-disabled">...</button>
-        <button className="btn btn-lg">99</button>
-        <button className="btn btn-lg">100</button>
         <button className={`btn btn-lg ${!charactersQuery.data.info.next ? "btn-disabled" : ""}`} onClick={() => setPage(page + 1)}>
           Next
         </button>
