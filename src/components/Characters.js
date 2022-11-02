@@ -4,9 +4,11 @@ import Modal from "./Modal";
 
 const Characters = () => {
   const [originId, setOriginId] = useState(null);
+  const [page, setPage] = useState(1);
 
-  const fetchCharacters = async () => {
-    const res = await fetch(`https://rickandmortyapi.com/api/character`);
+  const fetchCharacters = async ({ queryKey }) => {
+    const [_, page] = queryKey;
+    const res = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`);
     return res.json();
   };
   const fetchOrigin = async ({ queryKey }) => {
@@ -23,12 +25,12 @@ const Characters = () => {
     if (origin) {
       const originId = origin.split("/").slice(-1).pop();
       setOriginId(originId);
-      // manually refetch
       originQuery.refetch();
     }
   };
 
-  const charactersQuery = useQuery({ queryKey: ["characters"], queryFn: fetchCharacters });
+  const charactersQuery = useQuery({ queryKey: ["characters", page], queryFn: fetchCharacters });
+  console.log("🚀 ~ file: characters.js ~ line 33 ~ Characters ~ charactersQuery", charactersQuery);
   const originQuery = useQuery({ queryKey: ["origin", originId], queryFn: fetchOrigin, refetchOnWindowFocus: false, enabled: false });
 
   if (charactersQuery.status === "loading") {
@@ -63,6 +65,19 @@ const Characters = () => {
             </div>
           </div>
         ))}
+      <div className="btn-group">
+        <button className={`btn btn-lg ${page === 1 ? "btn-disabled" : ""}`} onClick={() => setPage(page - 1)}>
+          Previous
+        </button>
+        <button className="btn btn-lg">1</button>
+        <button className="btn btn-lg">2</button>
+        <button className="btn btn-lg btn-disabled">...</button>
+        <button className="btn btn-lg">99</button>
+        <button className="btn btn-lg">100</button>
+        <button className={`btn btn-lg ${!charactersQuery.data.info.next ? "btn-disabled" : ""}`} onClick={() => setPage(page + 1)}>
+          Next
+        </button>
+      </div>
       <Modal originQuery={originQuery} />
     </div>
   );
