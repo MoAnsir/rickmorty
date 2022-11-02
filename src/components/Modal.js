@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 const Modal = ({ originQuery }) => {
-  console.log("🚀 ~ file: Modal.js ~ line 5 ~ Modal ~ data", originQuery);
+  //console.log("🚀 ~ file: Modal.js ~ line 5 ~ Modal ~ data", originQuery);
   // const { data, isSuccess } = originQuery.data && originQuery.data;
   //console.log("🚀 ~ file: Modal.js ~ line 7 ~ Modal ~ isSuccess", isSuccess);
 

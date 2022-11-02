@@ -4,32 +4,32 @@ import Modal from "./Modal";
 
 const Characters = () => {
   const [originId, setOriginId] = useState(null);
-  useEffect(() => {
-    console.log("originId - ", originId);
-  }, [originId]);
 
   const fetchCharacters = async () => {
     const res = await fetch(`https://rickandmortyapi.com/api/character`);
     return res.json();
   };
-  const fetchOrigin = async () => {
-    const res = await fetch(`https://rickandmortyapi.com/api/location/${originId}`);
-    return res.json();
+  const fetchOrigin = async ({ queryKey }) => {
+    const [_, originId] = queryKey;
+    if (originId) {
+      console.log("🚀 ~ file: characters.js ~ line 17 ~ fetchOrigin ~ originId", originId);
+      const res = await fetch(`https://rickandmortyapi.com/api/location/${originId}`);
+      return res.json();
+    }
+    return false;
   };
 
   const getOrigin = (origin) => {
-    const originId = origin.split("/").slice(-1).pop();
-    setOriginId(originId);
-    // manually refetch
-    originQuery.refetch();
+    if (origin) {
+      const originId = origin.split("/").slice(-1).pop();
+      setOriginId(originId);
+      // manually refetch
+      originQuery.refetch();
+    }
   };
 
   const charactersQuery = useQuery({ queryKey: ["characters"], queryFn: fetchCharacters });
-  const originQuery = useQuery({ queryKey: ["origin"], queryFn: fetchOrigin, refetchOnWindowFocus: false, enabled: false });
-
-  // if (originQuery.status === "loading") {
-  //   return <p>Loading...</p>;
-  // }
+  const originQuery = useQuery({ queryKey: ["origin", originId], queryFn: fetchOrigin, refetchOnWindowFocus: false, enabled: false });
 
   if (charactersQuery.status === "loading") {
     return <p>Loading...</p>;
