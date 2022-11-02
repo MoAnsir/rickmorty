@@ -59,8 +59,8 @@ const Characters = () => {
                   {/* <button className="btn btn-primary" onClick={() => getOrigin(char.origin.url)}>
                   Where from
                 </button> */}
-                  <label htmlFor="my-modal" className="btn" onClick={() => getOrigin(char.origin.url)}>
-                    open modal
+                  <label htmlFor="my-modal" className="btn lowercase" onClick={() => getOrigin(char.origin.url)}>
+                    Location data
                   </label>
                 </div>
               </div>
